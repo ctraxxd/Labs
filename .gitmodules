@@ -1,6 +1,6 @@
 [submodule "LR3"]
 	path = LR3
-	url = https://github.com/ctraxxd/Labs
+	url = https://github.com/ctraxxd/LR3
 [submodule "https:/github.com/ctraxxd/LR3"]
 	path = https:/github.com/ctraxxd/LR3
 	url = https://github.com/ctraxxd/Labs
