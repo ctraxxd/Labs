@@ -1,0 +1,8 @@
+Upload files:
+0	Configure.xml
+1	Build.xml
+2	Done.xml
+	Upload file: /Users/ctraxxd/Documents/453502/OAiP/LR1/GTEST/cmake-build-debug/Testing/20240922-1518/Configure.xml to MacBook-Pro-Valerij.local___Darwin-g++-13___20240922-1518-Continuous___XML___Configure.xml
+   Error when uploading file: /Users/ctraxxd/Documents/453502/OAiP/LR1/GTEST/cmake-build-debug/Testing/20240922-1518/Configure.xml
+   Error message was: URL rejected: No host part in the URL
+   Problems when submitting via HTTP

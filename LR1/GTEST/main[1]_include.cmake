@@ -1,0 +1,5 @@
+if(EXISTS "/Users/ctraxxd/Documents/453502/OAiP/LR1/GTEST/main[1]_tests.cmake")
+  include("/Users/ctraxxd/Documents/453502/OAiP/LR1/GTEST/main[1]_tests.cmake")
+else()
+  add_test(main_NOT_BUILT main_NOT_BUILT)
+endif()

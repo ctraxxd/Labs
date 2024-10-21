@@ -1,0 +1,42 @@
+/Users/ctraxxd/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Users/ctraxxd/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -DCMAKE_CXX_COMPILER=/usr/local/Cellar/gcc/14.2.0/bin/cpp-14 -G Ninja -S /Users/ctraxxd/Documents/453502/OAiP/LR2/Task_9 -B /Users/ctraxxd/Documents/453502/OAiP/LR2/Task_9/cmake-build-debug
+-- The C compiler identification is AppleClang 16.0.0.16000026
+-- The CXX compiler identification is unknown
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - failed
+-- Check for working CXX compiler: /usr/local/Cellar/gcc/14.2.0/bin/cpp-14
+-- Check for working CXX compiler: /usr/local/Cellar/gcc/14.2.0/bin/cpp-14 - broken
+CMake Error at /Users/ctraxxd/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake:60 (message):
+  The C++ compiler
+
+    "/usr/local/Cellar/gcc/14.2.0/bin/cpp-14"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: '/Users/ctraxxd/Documents/453502/OAiP/LR2/Task_9/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-REPpK2'
+    
+    Run Build Command(s): /Users/ctraxxd/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -v cmTC_18f09
+    [1/2] /usr/local/Cellar/gcc/14.2.0/bin/cpp-14   -arch arm64 -o CMakeFiles/cmTC_18f09.dir/testCXXCompiler.cxx.o -c /Users/ctraxxd/Documents/453502/OAiP/LR2/Task_9/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-REPpK2/testCXXCompiler.cxx
+    FAILED: CMakeFiles/cmTC_18f09.dir/testCXXCompiler.cxx.o 
+    /usr/local/Cellar/gcc/14.2.0/bin/cpp-14   -arch arm64 -o CMakeFiles/cmTC_18f09.dir/testCXXCompiler.cxx.o -c /Users/ctraxxd/Documents/453502/OAiP/LR2/Task_9/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-REPpK2/testCXXCompiler.cxx
+    cpp-14: warning: this compiler does not support Arm64 ('-arch' option ignored)
+    cpp-14: fatal error: '-c' is not a valid option to the preprocessor
+    compilation terminated.
+    ninja: build stopped: subcommand failed.
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:2 (project)
+
+
+-- Configuring incomplete, errors occurred!

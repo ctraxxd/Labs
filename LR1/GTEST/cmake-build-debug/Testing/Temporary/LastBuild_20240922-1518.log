@@ -1,0 +1,14 @@
+[1/10] Building CXX object GTEST/googletest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
+[2/10] Building CXX object CMakeFiles/main.dir/main.cpp.o
+[01m[K/Users/ctraxxd/Documents/453502/OAiP/LR1/GTEST/main.cpp:[m[K In function '[01m[Kint[01;32m[K main[m[K()[m[K':
+[01m[K/Users/ctraxxd/Documents/453502/OAiP/LR1/GTEST/main.cpp:20:18:[m[K [01;35m[Kwarning: [m[Kignoring return value of '[01m[Kint[01;32m[K RUN_ALL_TESTS[m[K()[m[K' declared with attribute '[01m[Kwarn_unused_result[m[K' [[01;35m[K-Wunused-result[m[K]
+   20 |     [01;35m[KRUN_ALL_TESTS()[m[K;
+      |     [01;35m[K~~~~~~~~~~~~~^~[m[K
+[3/10] Building CXX object GTEST/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
+[4/10] Building CXX object GTEST/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
+[5/10] Building CXX object GTEST/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+[6/10] Linking CXX static library lib/libgtest.a
+[7/10] Linking CXX static library lib/libgtest_main.a
+[8/10] Linking CXX static library lib/libgmock.a
+[9/10] Linking CXX static library lib/libgmock_main.a
+[10/10] Linking CXX executable main
