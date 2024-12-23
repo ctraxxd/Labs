@@ -1,35 +1,22 @@
 #include <iostream>
-
-bool isPal(char *a, int size) {
-    int i = 0, j = size - 1;
-    while (i < j) {
-        if (a[i] != a[j])
-            return false;
-        i++;
-        j--;
-    }
-    return true;
-}
+#include "func.h"
 
 int main() {
-    int n;
-    std::cin >> n;
-    char **c = new char *[n];
-    char C = getchar();
-    while (C != '\n')
-        C = getchar();
-    for (int i = 0; i < n; i++) {
-        c[i] = new char[80];
-        char C = getchar();
-        int I = 0;
-        while (C != '\n') {
-            c[i][I] = C;
-            C = getchar();
-            I++;
+    setlocale(LC_ALL, "RU");
+    std::cout << "Программа, для нахождения симметричных строк\n";
+    std::cout << "Выполнил Ефременко Валерий, группа 453502, вариант 9\n\n";
+    while (true) {
+        std::cout << "Введите 1, чтобы выполнить программу, или введите 2, чтобы закончить работу программы: ";
+        int type = readInt();
+        if (type != 1 && type != 2) {
+            std::cout << "Неправильный формат ввода.\n\n";
+            continue;
         }
-        for (int j = 0; j < I; j++)
-            std::cout << c[i][j];
-        std::cout << (isPal(c[i], I) ? " - палиндром" : " - не палиндром") << '\n';
+        if (type == 2) {
+            std::cout << "Выполнение программы завершено.\n";
+            break;
+        }
+        Task();
     }
     return 0;
 }

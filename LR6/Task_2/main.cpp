@@ -1,32 +1,23 @@
 #include <iostream>
-
-int isLet(char x) {
-    if ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z')) {
-        if (x == 'a' || x == 'o' || x == 'u' || x == 'i' || x == 'e' || x == 'y' ||
-            x == 'A' || x == 'O' || x == 'U' || x == 'I' || x == 'E' || x == 'Y') {
-            return 1;
-        } else return -1;
-    }
-    return 0;
-}
+#include "func.h"
 
 int main() {
-    char *c = new char[80];
-    char C = getchar();
-    int I = 0;
-    while (C != '\n') {
-        c[I] = C;
-        C = getchar();
-        I++;
+    setlocale(LC_ALL, "RU");
+    std::cout << "Программа, для определения каких букв больше? Гласных или согласных\n";
+    std::cout << "Выполнил Ефременко Валерий, группа 453502, вариант 9\n\n";
+    while (true) {
+        std::cout << "Введите 1, чтобы выполнить программу, или введите 2, чтобы закончить работу программы: ";
+        int type = readInt();
+        if (type != 1 && type != 2) {
+            std::cout << "Неправильный формат ввода.\n\n";
+            continue;
+        }
+        if (type == 2) {
+            std::cout << "Выполнение программы завершено.\n";
+            break;
+        }
+        std::cout << "Введите строку:\n";
+        Task();
     }
-    int delta = 0;
-    for (int i = 0; i < 80; i++)
-        delta += isLet(c[i]);
-    if (delta > 0)
-        std::cout << "Гласных";
-    else if (delta == 0)
-        std::cout << "Поровну";
-    else std::cout << "Согласных";
-    delete[]c;
     return 0;
 }
