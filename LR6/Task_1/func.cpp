@@ -92,9 +92,16 @@ void Task() {
     char C = (char) getchar();
     int I = 0;
     while (C != '\n') {
-        c[I] = C;
+        if(I < N)
+            c[I] = C;
         C = (char) getchar();
         I++;
+    }
+    if(I >= N)
+    {
+        std::cout << "Неправильный формат строки. Введите данные заново.\n";
+        delete[]c;
+        return;
     }
     bool b = true;
     for (int j = 0; j < I; j++)
