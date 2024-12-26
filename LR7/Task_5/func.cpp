@@ -42,7 +42,7 @@ int readInt() {
 void Task() {
     std::cout << "Первый раб выпил вино из бочек с номерами: ";
     int cnt = 0;
-    for (int i = 1; i <= 240; i++) {
+    for (int i = 1; i <= 240; i++) { //O(N)
         if ((i / 1) % 3 == 1) {
             if (cnt)
                 std::cout << ", " << i;
@@ -53,7 +53,7 @@ void Task() {
     std::cout << '\n';
     std::cout << "Второй раб выпил вино из бочек с номерами: ";
     cnt = 0;
-    for (int i = 1; i <= 240; i++) {
+    for (int i = 1; i <= 240; i++) { //O(N)
         if ((i / 3) % 3 == 1) {
             if (cnt)
                 std::cout << ", " << i;
@@ -64,7 +64,7 @@ void Task() {
     std::cout << '\n';
     std::cout << "Третий раб выпил вино из бочек с номерами: ";
     cnt = 0;
-    for (int i = 1; i <= 240; i++) {
+    for (int i = 1; i <= 240; i++) { //O(N)
         if ((i / 9) % 3 == 1) {
             if (cnt)
                 std::cout << ", " << i;
@@ -75,7 +75,7 @@ void Task() {
     std::cout << '\n';
     std::cout << "Четвертый раб выпил вино из бочек с номерами: ";
     cnt = 0;
-    for (int i = 1; i <= 240; i++) {
+    for (int i = 1; i <= 240; i++) { //O(N)
         if ((i / 27) % 3 == 1) {
             if (cnt)
                 std::cout << ", " << i;
@@ -86,7 +86,7 @@ void Task() {
     std::cout << '\n';
     std::cout << "Пятый раб выпил вино из бочек с номерами: ";
     cnt = 0;
-    for (int i = 1; i <= 240; i++) {
+    for (int i = 1; i <= 240; i++) { //O(N)
         if ((i / 81) % 3 == 1) {
             if (cnt)
                 std::cout << ", " << i;
@@ -145,7 +145,7 @@ void Task() {
     if (!ans[0]) {
         std::cout << "Первый раб выпил вино из бочек с номерами: ";
         cnt = 0;
-        for (int i = 1; i <= 240; i++) {
+        for (int i = 1; i <= 240; i++) { //O(N)
             if ((i / 1) % 3 == 2) {
                 if (cnt)
                     std::cout << ", " << i;
@@ -158,7 +158,7 @@ void Task() {
     if (!ans[1]) {
         std::cout << "Второй раб выпил вино из бочек с номерами: ";
         cnt = 0;
-        for (int i = 1; i <= 240; i++) {
+        for (int i = 1; i <= 240; i++) { //O(N)
             if ((i / 3) % 3 == 2) {
                 if (cnt)
                     std::cout << ", " << i;
@@ -171,7 +171,7 @@ void Task() {
     if (!ans[2]) {
         std::cout << "Третий раб выпил вино из бочек с номерами: ";
         cnt = 0;
-        for (int i = 1; i <= 240; i++) {
+        for (int i = 1; i <= 240; i++) { //O(N)
             if ((i / 9) % 3 == 2) {
                 if (cnt)
                     std::cout << ", " << i;
@@ -184,7 +184,7 @@ void Task() {
     if (!ans[3]) {
         std::cout << "Четвертый раб выпил вино из бочек с номерами: ";
         cnt = 0;
-        for (int i = 1; i <= 240; i++) {
+        for (int i = 1; i <= 240; i++) { //O(N)
             if ((i / 27) % 3 == 2) {
                 if (cnt)
                     std::cout << ", " << i;
@@ -197,7 +197,7 @@ void Task() {
     if (!ans[4]) {
         std::cout << "Пятый раб выпил вино из бочек с номерами: ";
         cnt = 0;
-        for (int i = 1; i <= 240; i++) {
+        for (int i = 1; i <= 240; i++) { //O(N)
             if ((i / 81) % 3 == 2) {
                 if (cnt)
                     std::cout << ", " << i;
