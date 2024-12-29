@@ -1,0 +1,15 @@
+# ninja log v6
+1	723	1735470666556528499	CMakeFiles/Task_2.dir/main.cpp.o	434df87ebb03afe8
+5	646	1735472092963267234	CMakeFiles/Task_2.dir/functions.cpp.o	f70f7b0c9f48c8d5
+6	603	1735472109749691709	CMakeFiles/Task_2.dir/functions.cpp.o	f70f7b0c9f48c8d5
+5	521	1735472120390521115	CMakeFiles/Task_2.dir/main.cpp.o	434df87ebb03afe8
+5	538	1735472120390875733	CMakeFiles/Task_2.dir/functions.cpp.o	f70f7b0c9f48c8d5
+538	649	1735472120923488336	Task_2	84ffcfc71cafbad6
+14	724	1735491892478130618	CMakeFiles/Task_2.dir/main.cpp.o	434df87ebb03afe8
+15	732	1735491892479081053	CMakeFiles/Task_2.dir/functions.cpp.o	f70f7b0c9f48c8d5
+732	849	1735491893196080785	Task_2	84ffcfc71cafbad6
+5	734	1735492476273176160	CMakeFiles/Task_2.dir/main.cpp.o	434df87ebb03afe8
+5	741	1735492476273525572	CMakeFiles/Task_2.dir/functions.cpp.o	f70f7b0c9f48c8d5
+741	857	1735492477009426545	Task_2	84ffcfc71cafbad6
+2	530	1735492755150160171	CMakeFiles/Task_2.dir/functions.cpp.o	f70f7b0c9f48c8d5
+530	652	1735492755677741378	Task_2	84ffcfc71cafbad6
