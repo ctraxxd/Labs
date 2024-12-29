@@ -4,11 +4,7 @@
 
 int main() {
     int bookCount = 0;
-    Data *books = nullptr;
-    initBooks(books, bookCount);
-    if (books == nullptr) {
-        books = (Data *) malloc(5 * sizeof(Data));
-    }
+    Data *books = (Data *) malloc(5 * sizeof(Data));
     while (true) {
         int choice = choiceTasks();
         switch (choice) {
@@ -42,35 +38,24 @@ int main() {
                 break;
             case 8:
                 std::cout << "=====================================================================================\n";
-                findBooksByNumberOfBook(books, bookCount);
+                findBooksByYear(books, bookCount);
                 break;
             case 9:
                 std::cout << "=====================================================================================\n";
-                saveToFile(books, bookCount);
+                addNewBook();
                 break;
             case 10:
                 std::cout << "=====================================================================================\n";
-                printFromFile();
+                deleteBook();
                 break;
             case 11: {
                 std::cout << "=====================================================================================\n";
-                std::fstream file;
-                int size;
-                file.open("size.txt", std::ios::in);
-                if (file.peek() != EOF) { //В файле что, то есть
-                    file >> size;
-                    file.close();
-                } else {
-                    std::cout << "Нечего выводить...\n";
-                    file.close();
-                    break;
-                }
-                if (size == 0) {
-                    std::cout << "Нечего выводить...\n";
-                    file.close();
-                    break;
-                }
-                changeFile();
+                updateBook();
+                break;
+            }
+            case 12: {
+                std::cout << "=====================================================================================\n";
+                displayBooks();
                 break;
             }
             case 0:

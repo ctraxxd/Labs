@@ -35,8 +35,8 @@ void inputData(Data **workshops, int *count, int *max_count) {
         std::cin >> (*workshops)[*count].weightOfOneProduct;
         (*workshops)[*count].weightOfAllProducts =
                 (*workshops)[*count].weightOfOneProduct * (*workshops)[*count].numberOfProduct;
-        (*workshops)[*count].idOfProduct = ((*count + 2) * (*max_count + 2)) % mod;
-        std::cout << "id изделия: " << (*workshops)[*count].idOfProduct << "\n\n";
+        (*workshops)[*count].u.idOfProduct = ((*count + 2) * (*max_count + 2)) % mod;
+        std::cout << "id изделия: " << (*workshops)[*count].u.idOfProduct << "\n\n";
         (*count)++;
     }
 
@@ -135,7 +135,7 @@ void displayWorkshopArray(Data *workshops, int count) {
                   << workshops[i].numberOfProduct << '\n'
                   << "Масса одного изделия: " << workshops[i].weightOfOneProduct << '\n' << "Масса всех изделий: "
                   << workshops[i].weightOfAllProducts << "\nid изделия: "
-                  << workshops[i].idOfProduct << "\n---------------------------------------------\n";
+                  << workshops[i].u.idOfProduct << "\n---------------------------------------------\n";
     }
 }
 
@@ -149,14 +149,14 @@ void findWorkshopByIdOfProduct(Data *workshops, int count) {
     std::cin >> id;
     int found = 0;
     for (int i = 0; i < count; i++) {
-        if (workshops[i].idOfProduct == id) {
+        if (workshops[i].u.idOfProduct == id) {
             std::cout << "Название: " << workshops[i].nameOfProduct << '\n' << "Номер цеха: "
                       << workshops[i].numberOfWorkshop << '\n'
                       << "Количество: "
                       << workshops[i].numberOfProduct << '\n'
                       << "Масса одного изделия: " << workshops[i].weightOfOneProduct << '\n' << "Масса всех изделий: "
                       << workshops[i].weightOfAllProducts << "\nid изделия: "
-                      << workshops[i].idOfProduct << "\n---------------------------------------------\n";
+                      << workshops[i].u.idOfProduct << "\n---------------------------------------------\n";
             found = 1;
             break;
         }
@@ -176,7 +176,7 @@ void deleteWorkshopByIdOfProduct(Data **workshops, int *count) {
     std::cin >> id;
     int found = 0;
     for (int i = 0; i < *count; i++) {
-        if ((*workshops)[i].idOfProduct == id) {
+        if ((*workshops)[i].u.idOfProduct == id) {
             for (int j = i; j < *count - 1; ++j) {
                 (*workshops)[j] = (*workshops)[j + 1];
             }
@@ -206,7 +206,7 @@ void updateWorkshopByIdOfProduct(Data *workshops, int count) {
     std::cin >> id;
     int found = 0;
     for (int i = 0; i < count; i++) {
-        if (workshops[i].idOfProduct == id) {
+        if (workshops[i].u.idOfProduct == id) {
             std::cout << "Введите новые данные для изделия с id: " << id << '\n';
             std::cout << "Введите наименование продукции: ";
             std::cin >> workshops[i].nameOfProduct;
@@ -276,7 +276,7 @@ void findWorkshopsByNumberOfWorkshop(Data *workshops, int count) {
                       << workshops[i].numberOfProduct << '\n'
                       << "Масса одного изделия: " << workshops[i].weightOfOneProduct << '\n' << "Масса всех изделий: "
                       << workshops[i].weightOfAllProducts << "\nid изделия: "
-                      << workshops[i].idOfProduct << "\n---------------------------------------------\n";
+                      << workshops[i].u.idOfProduct << "\n---------------------------------------------\n";
             found = 1;
         }
     }
@@ -311,7 +311,7 @@ void printFromFile() {
                   << data.numberOfProduct << '\n'
                   << "Масса одного изделия: " << data.weightOfOneProduct << '\n' << "Масса всех изделий: "
                   << data.weightOfAllProducts << "\nid изделия: "
-                  << data.idOfProduct << "\n---------------------------------------------\n";
+                  << data.u.idOfProduct << "\n---------------------------------------------\n";
 
     }
     file.close();

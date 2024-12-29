@@ -1,15 +1,9 @@
 #include "functions.h"
 
-#define fopen_s(pFile, filename, mode) ((*(pFile))=fopen((filename),  (mode)))==NULL
-
 #include <cstdio>
 #include <cstdlib>
-#include <cctype>
 #include <iostream>
 #include <fstream>
-
-std::fstream file;
-bool isDataEntered = false;
 
 void input(char *str) {
     char c;
@@ -20,6 +14,20 @@ void input(char *str) {
         std::cin >> c;
         str[i] = c, i++;
         if (std::cin.peek() == '\n')
+            break;
+    }
+    str[i] = '\0';
+}
+
+void inputF(char *str, std::fstream &file) {
+    char c;
+    int i = 0;
+    while (true) {
+        if (file.peek() == ' ')
+            str[i] = ' ', i++;
+        file >> c;
+        str[i] = c, i++;
+        if (file.peek() == '\n')
             break;
     }
     str[i] = '\0';
@@ -49,63 +57,21 @@ void inputData(Data **books, int *count, int *max_count) {
         std::cout << "Введите издательство: ";
         input((*books)[*count].publishHouse);
         std::cout << "Введите количество страниц: ";
-        std::cin >> (*books)[*count].numberOfBooks;
+        std::cin >> (*books)[*count].u.numberOfBooks;
         (*count)++;
     }
-
 }
 
 void inputBookData(Data **books, int &bookCount) {
     int maxCount = 5;
-    if (isDataEntered) {
-        std::cout << "Ошибка: Данные о книгах уже введены, повторный ввод недоступен.\n";
-        return;
-    }
     std::cout << "Введите количество различных книг: ";
     inputData(books, &bookCount, &maxCount);
-    isDataEntered = true;
 }
 
 void addBook(Data **books, int &count) {
-    if (!isDataEntered) {
-        std::cout << "Введите сначала данные...\n";
-        return;
-    }
     std::cout << "Введите количество книг для добавления: ";
     int maxCount = 5;
     inputData(books, &count, &maxCount);
-}
-
-void initBooks(Data *&books, int &count) {
-    int size;
-    file.open("size.txt", std::ios::in);
-    if (file.peek() != EOF) {
-        file >> size;
-        file.close();
-    } else {
-        std::cout << "Файл пуст...\n";
-        file.close();
-        return;
-    }
-    if (size == 0) {
-        std::cout << "Файл пуст...\n";
-        file.close();
-        return;
-    }
-    books = (Data *) malloc(size * sizeof(Data));
-    file.open("books.bin", std::ios_base::binary | std::ios_base::in);
-    Data Data;
-    for (int i = 0; i < size; i++) {
-        file.read((char *) &Data, sizeof(Data));
-        books[i] = Data;
-        std::cout << Data.regNumber << '\n';
-    }
-    isDataEntered = true;
-    count = size;
-    file.close();
-    std::cout << "Загружено " << size << " книг из файла";
-    count = size;
-    file.close();
 }
 
 int choiceTasks() {
@@ -117,28 +83,21 @@ int choiceTasks() {
               << "2. Показать данные о книгах\n"
               << "3. Добавить новые книги\n"
               << "4. Найти книгу по рег. номеру\n"
-              << "5. Удалить изделие по рег. номеру\n"
-              << "6. Изменить данные изделия по рег. номеру\n"
-              << "7. Сортировать изделия по автору\n"
+              << "5. Удалить книгу по рег. номеру\n"
+              << "6. Изменить данные книги по рег. номеру\n"
+              << "7. Сортировать книги по автору\n"
               << "8. Найти все книги после заданного года\n"
-              << "9. Запись данных в файл\n"
-              << "10. Чтение данных из файла\n"
-              << "11. Корректировка данных файла\n"
+              << "9. Добавить книгу в файл\n"
+              << "10. Удалить книгу из файла\n"
+              << "11. Корректировка книги в файле\n"
+              << "12. Просмотр книг из файла\n"
               << "0. Выход из программы\n\n"
               << "Ваш выбор: ";
-    while (!(std::cin >> choice) || std::cin.peek() != '\n' || (choice < 0 || choice > 11)) {
-        std::cin.clear();
-        while (std::cin.get() != '\n');
-        std::cout << "Ошибка ввода.\nПожалуйста, выберите значение от 0 до 11: ";
-    }
+    std::cin >> choice;
     return choice;
 }
 
 void displayBookArray(Data *books, int count) {
-    if (!isDataEntered) {
-        std::cout << ("Введите сначала данные...\n");
-        return;
-    }
     std::cout
             << ("Данные о книгах:\n=====================================================================================\n");
     for (int i = 0; i < count; i++) {
@@ -148,15 +107,11 @@ void displayBookArray(Data *books, int count) {
                   << books[i].name << '\n'
                   << "Год издания: " << books[i].year << '\n' << "Издательство: "
                   << books[i].publishHouse << "\nКол-во книг: "
-                  << books[i].numberOfBooks << "\n---------------------------------------------\n";
+                  << books[i].u.numberOfBooks << "\n---------------------------------------------\n";
     }
 }
 
 void findBookByRegNumber(Data *books, int count) {
-    if (!isDataEntered) {
-        std::cout << "Введите сначала данные...\n";
-        return;
-    }
     int id;
     std::cout << "Введите рег. номер для поиска: ";
     std::cin >> id;
@@ -169,21 +124,17 @@ void findBookByRegNumber(Data *books, int count) {
                       << books[i].name << '\n'
                       << "Год издания: " << books[i].year << '\n' << "Издательство: "
                       << books[i].publishHouse << "\nКол-во книг: "
-                      << books[i].numberOfBooks << "\n---------------------------------------------\n";
+                      << books[i].u.numberOfBooks << "\n---------------------------------------------\n";
             found = 1;
             break;
         }
     }
     if (!found) {
-        std::cout << "Продукция с рег. номером " << id << " не найдена.\n";
+        std::cout << "Книга с рег. номером " << id << " не найдена.\n";
     }
 }
 
 void deleteBookByRegNumber(Data **books, int *count) {
-    if (!isDataEntered) {
-        std::cout << "Введите сначала данные...\n";
-        return;
-    }
     int id;
     std::cout << "Введите рег. номер для удаления: ";
     std::cin >> id;
@@ -210,10 +161,6 @@ void deleteBookByRegNumber(Data **books, int *count) {
 }
 
 void updateBookByRegNumber(Data *books, int count) {
-    if (!isDataEntered) {
-        std::cout << ("Введите сначала данные...\n");
-        return;
-    }
     int id;
     std::cout << "Введите рег. номер для изменения: ";
     std::cin >> id;
@@ -230,12 +177,12 @@ void updateBookByRegNumber(Data *books, int count) {
             std::cout << "Введите издательство: ";
             input(books[i].publishHouse);
             std::cout << "Введите количество книг: ";
-            std::cin >> books[i].numberOfBooks;
+            std::cin >> books[i].u.numberOfBooks;
             break;
         }
     }
     if (!found) {
-        std::cout << "Книг изданных после " << id << " не найдено.\n";
+        std::cout << "Книги с рег. номером " << id << " не найдено.\n";
     }
 }
 
@@ -249,10 +196,6 @@ bool Is_Bigger(char *a, char *b) {
 }
 
 void sortByAuthor(Data *books, int count) {
-    if (!isDataEntered) {
-        std::cout << "Введите сначала данные...\n";
-        return;
-    }
     bool isSorted = false;
     int right = count - 1;
     int start = 0;
@@ -277,14 +220,10 @@ void sortByAuthor(Data *books, int count) {
         }
         start++;
     }
-    std::cout << "Массив отсортирован в алфавитном порядке авторов.\n";
+    std::cout << "Массив отсортирован в алфавитном порядке относительно авторов.\n";
 }
 
-void findBooksByNumberOfBook(Data *books, int count) {
-    if (!isDataEntered) {
-        std::cout << "Введите сначала данные...\n";
-        return;
-    }
+void findBooksByYear(Data *books, int count) {
     sortByAuthor(books, count);
     int year;
     std::cout << "Введите год издания: ";
@@ -298,107 +237,225 @@ void findBooksByNumberOfBook(Data *books, int count) {
                       << books[i].name << '\n'
                       << "Год издания: " << books[i].year << '\n' << "Издательство: "
                       << books[i].publishHouse << "\nКол-во книг: "
-                      << books[i].numberOfBooks << "\n---------------------------------------------\n";
+                      << books[i].u.numberOfBooks << "\n---------------------------------------------\n";
             found = 1;
         }
     }
-
+    if (!found) {
+        std::cout << "Нет книг изданных после " << year << '\n';
+    }
 }
 
-void printFromFile() {
-    int size;
-    file.open("size.txt", std::ios::in);
-    if (file.peek() != EOF) { //В файле что, то есть
-        file >> size;
-        file.close();
-    } else {
-        std::cout << "Нечего выводить...\n";
-        file.close();
-        return;
+void strcp(std::string s, char *c) {
+    for (int i = 0; i < s.size(); i++)
+        c[i] = s[i];
+    c[s.size()] = '\0';
+}
+
+void addNewBook() {
+    std::fstream file;
+    file.open("data.txt", std::ios::in);
+    int cnt = 0;
+    if (file.peek() != EOF)
+        file >> cnt;
+    Data books[cnt + 1];
+    for (int i = 0; i < cnt; i++) {
+        char str[4000];
+        inputF(str, file);
+        int j = 0, c = 0;
+        std::string s;
+        while (str[j] != '\0') {
+            if (str[j] == '|') {
+                if (c == 0)
+                    books[i].regNumber = stoi(s);
+                else if (c == 1)
+                    strcp(s, books[i].author);
+                else if (c == 2)
+                    strcp(s, books[i].name);
+                else if (c == 3)
+                    books[i].year = stoi(s);
+                else if (c == 4)
+                    strcp(s, books[i].publishHouse);
+                c++;
+                s = "";
+                j++;
+            }
+            s += str[j];
+            j++;
+        }
+        books[i].u.numberOfBooks = stoi(s);
     }
-    if (size == 0) {
-        std::cout << "Нечего выводить...\n";
-        file.close();
-        return;
+    file.close();
+    std::cout << "Введите регистрационный номер: ";
+    std::cin >> books[cnt].regNumber;
+    std::cout << "Введите автора: ";
+    input(books[cnt].author);
+    std::cout << "Введите название книги: ";
+    input(books[cnt].name);
+    std::cout << "Введите год издания: ";
+    std::cin >> books[cnt].year;
+    std::cout << "Введите издательство: ";
+    input(books[cnt].publishHouse);
+    std::cout << "Введите количество страниц: ";
+    std::cin >> books[cnt].u.numberOfBooks;
+    file.open("data.txt", std::ios::out);
+    file << cnt + 1 << '\n';
+    for (int i = 0; i <= cnt; i++)
+        file << books[i].regNumber << '|' << books[i].author << '|' << books[i].name << '|' << books[i].year << '|'
+             << books[i].publishHouse << '|' << books[i].u.numberOfBooks << '\n';
+    file.close();
+}
+
+void deleteBook() {
+    std::fstream file;
+    file.open("data.txt", std::ios::in);
+    int cnt = 0;
+    if (file.peek() != EOF)
+        file >> cnt;
+    Data books[cnt];
+    for (int i = 0; i < cnt; i++) {
+        char str[4000];
+        inputF(str, file);
+        int j = 0, c = 0;
+        std::string s;
+        while (str[j] != '\0') {
+            if (str[j] == '|') {
+                if (c == 0)
+                    books[i].regNumber = stoi(s);
+                else if (c == 1)
+                    strcp(s, books[i].author);
+                else if (c == 2)
+                    strcp(s, books[i].name);
+                else if (c == 3)
+                    books[i].year = stoi(s);
+                else if (c == 4)
+                    strcp(s, books[i].publishHouse);
+                c++;
+                s = "";
+                j++;
+            }
+            s += str[j];
+            j++;
+        }
+        books[i].u.numberOfBooks = stoi(s);
     }
-    file.open("books.bin", std::ios_base::binary | std::ios_base::in);
-    Data data;
-    for (int i = 0; i < size; i++) {
-        file.read((char *) &data, sizeof(Data));
-        std::cout << "Рег. номер: " << data.regNumber << '\n' << "Автор: "
-                  << data.author << '\n'
+    file.close();
+    int id;
+    std::cout << "Введите регистрационный номер книги, которую хотим удалить: ";
+    std::cin >> id;
+    file.open("data.txt", std::ios::out);
+    int c = 0;
+    for (int i = 0; i < cnt; i++)
+        if (books[i].regNumber == id)
+            c++;
+    file << cnt - c << '\n';
+    for (int i = 0; i < cnt; i++)
+        if (books[i].regNumber != id)
+            file << books[i].regNumber << '|' << books[i].author << '|' << books[i].name << '|' << books[i].year
+                 << '|' << books[i].publishHouse << '|' << books[i].u.numberOfBooks << '\n';
+    file.close();
+}
+
+void updateBook() {
+    std::fstream file;
+    file.open("data.txt", std::ios::in);
+    int cnt = 0;
+    if (file.peek() != EOF)
+        file >> cnt;
+    Data books[cnt];
+    for (int i = 0; i < cnt; i++) {
+        char str[4000];
+        inputF(str, file);
+        int j = 0, c = 0;
+        std::string s;
+        while (str[j] != '\0') {
+            if (str[j] == '|') {
+                if (c == 0)
+                    books[i].regNumber = stoi(s);
+                else if (c == 1)
+                    strcp(s, books[i].author);
+                else if (c == 2)
+                    strcp(s, books[i].name);
+                else if (c == 3)
+                    books[i].year = stoi(s);
+                else if (c == 4)
+                    strcp(s, books[i].publishHouse);
+                c++;
+                s = "";
+                j++;
+            }
+            s += str[j];
+            j++;
+        }
+        books[i].u.numberOfBooks = stoi(s);
+    }
+    file.close();
+    int id;
+    std::cout << "Введите регистрационный номер книги, которую хотим изменить: ";
+    std::cin >> id;
+    file.open("data.txt", std::ios::out);
+    for (int i = 0; i < cnt; i++)
+        if (books[i].regNumber == id) {
+            std::cout << "Введите автора: ";
+            input(books[i].author);
+            std::cout << "Введите название книги: ";
+            input(books[i].name);
+            std::cout << "Введите год издания: ";
+            std::cin >> books[i].year;
+            std::cout << "Введите издательство: ";
+            input(books[i].publishHouse);
+            std::cout << "Введите количество страниц: ";
+            std::cin >> books[i].u.numberOfBooks;
+            break;
+        }
+    file << cnt << '\n';
+    for (int i = 0; i < cnt; i++)
+        file << books[i].regNumber << '|' << books[i].author << '|' << books[i].name << '|' << books[i].year << '|'
+             << books[i].publishHouse << '|' << books[i].u.numberOfBooks << '\n';
+    file.close();
+}
+
+void displayBooks() {
+    std::fstream file;
+    file.open("data.txt", std::ios::in);
+    int cnt = 0;
+    if (file.peek() != EOF)
+        file >> cnt;
+    Data books[cnt];
+    for (int i = 0; i < cnt; i++) {
+        char str[4000];
+        inputF(str, file);
+        int j = 0, c = 0;
+        std::string s;
+        while (str[j] != '\0') {
+            if (str[j] == '|') {
+                if (c == 0)
+                    books[i].regNumber = stoi(s);
+                else if (c == 1)
+                    strcp(s, books[i].author);
+                else if (c == 2)
+                    strcp(s, books[i].name);
+                else if (c == 3)
+                    books[i].year = stoi(s);
+                else if (c == 4)
+                    strcp(s, books[i].publishHouse);
+                c++;
+                s = "";
+                j++;
+            }
+            s += str[j];
+            j++;
+        }
+        books[i].u.numberOfBooks = stoi(s);
+    }
+    file.close();
+    for (int i = 0; i < cnt; i++) {
+        std::cout << "Рег. номер: " << books[i].regNumber << '\n' << "Автор: "
+                  << books[i].author << '\n'
                   << "Название: "
-                  << data.name << '\n'
-                  << "Год издания: " << data.year << '\n' << "Издательство: "
-                  << data.publishHouse << "\nКол-во книг: "
-                  << data.numberOfBooks << "\n---------------------------------------------\n";
-
+                  << books[i].name << '\n'
+                  << "Год издания: " << books[i].year << '\n' << "Издательство: "
+                  << books[i].publishHouse << "\nКол-во книг: "
+                  << books[i].u.numberOfBooks << "\n---------------------------------------------\n";
     }
-    file.close();
-}
-
-void changeFile() {
-    if (!isDataEntered) {
-        std::cout << "Введите сначала данные...\n";
-        return;
-    }
-    printFromFile();
-    int idx;
-    std::cout << "Выберите книгу для изменения: ";
-    std::cin >> idx;
-    idx--;
-    Data Data;
-    file.open("books.bin", std::ios_base::binary | std::ios_base::in);
-    file.seekg(idx * sizeof(Data), std::ios::beg);
-    file.read((char *) &Data, sizeof(Data));
-    file.close();
-    int cc;
-    std::cout << "1) Название изделия\n2) Номер цеха\n3) Количество сделанных изделий\n4) Масса одного изделия";
-    std::cout << "\n\nВведите параметр для изменения: ";
-    while (!(std::cin >> cc) || std::cin.peek() != '\n' || (cc < 1 || cc > 4)) {
-        std::cin.clear();
-        while (std::cin.get() != '\n');
-        std::cout << "Ошибка ввода.\nПожалуйста, выберите значение от 1 до 4: ";
-    }
-    std::cin.ignore();
-    if (cc == 1) {
-        std::cout << "\nВведите новое название изделия: ";
-        input(Data.author);
-        std::cout << "Обновление успешно";
-    } else if (cc == 2) {
-        std::cout << "\nВведите новый номер цеха: ";
-        input(Data.name);
-        std::cout << "Обновление успешно";
-    } else if (cc == 3) {
-        std::cout << "\nВведите новое количество изделия: ";
-        std::cin >> Data.year;
-        std::cout << "Обновление успешно";
-    } else if (cc == 4) {
-        std::cout << "\nВведите новую массу изделия: ";
-        input(Data.publishHouse);
-        std::cout << "Обновление успешно";
-    } else if (cc == 5) {
-        std::cout << "\nВведите новую массу изделия: ";
-        std::cin >> Data.numberOfBooks;
-        std::cout << "Обновление успешно";
-    }
-    FILE *f1;
-    fopen_s(&f1, "books.bin", "rb+");
-    fseek(f1, sizeof(Data) * idx, 0);
-    fwrite((char *) &Data, sizeof(Data), 1, f1);
-    fclose(f1);
-}
-
-void saveToFile(Data *books, int count) {
-    file.open("books.bin", std::ios::binary | std::ios::out);
-    file.close();
-    for (int i = 0; i < count; i++) {
-        file.open("books.bin", std::ios::binary | std::ios::app);
-        file.write((char *) &books[i], sizeof(Data));
-        file.close();
-    }
-    file.open("size.txt", std::ios::out);
-    file << count;
-    file.close();
-    std::cout << "Запись прошла успешно\n";
 }

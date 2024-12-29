@@ -7,7 +7,10 @@ typedef struct {
     int numberOfProduct;
     long double weightOfOneProduct;
     long double weightOfAllProducts;
-    int idOfProduct;
+    union {
+        int idOfProduct;
+        int idOfWorkshop;
+    } u;
 } Data;
 
 void inputData(Data **, int *, int *);

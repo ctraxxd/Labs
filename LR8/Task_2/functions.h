@@ -5,9 +5,12 @@ typedef struct {
     int regNumber;
     char author[1000];
     char name[1000];
-    int year;
     char publishHouse[1000];
-    int numberOfBooks;
+    int year;
+    union {
+        int numberOfBooks;
+        int sizeOfBooks;
+    } u;
 } Data;
 
 void input(char *);
@@ -17,8 +20,6 @@ void inputData(Data **, int *, int *);
 void inputBookData(Data **, int &);
 
 void addBook(Data **, int &);
-
-void initBooks(Data *&, int &);
 
 int choiceTasks();
 
@@ -32,12 +33,14 @@ void updateBookByRegNumber(Data *, int);
 
 void sortByAuthor(Data *, int);
 
-void findBooksByNumberOfBook(Data *, int);
+void findBooksByYear(Data *, int);
 
-void printFromFile();
+void addNewBook();
 
-void changeFile();
+void deleteBook();
 
-void saveToFile(Data *, int);
+void updateBook();
+
+void displayBooks();
 
 #endif //TASK2_FUNCTIONS_H
